@@ -1,0 +1,65 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.20'
+    id 'io.ktor.plugin' version '2.3.5'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.20'
+    id 'application'
+}
+
+group = 'com.gendev.server'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.opencsv:opencsv:5.9'
+    implementation 'io.ktor:ktor-server-core-jvm'
+    implementation 'io.ktor:ktor-server-netty-jvm'
+    implementation 'io.ktor:ktor-server-content-negotiation-jvm'
+    implementation 'io.ktor:ktor-serialization-kotlinx-json-jvm'
+    implementation 'io.ktor:ktor-server-cors-jvm'
+    implementation 'io.ktor:ktor-client-core'
+    implementation 'io.ktor:ktor-client-cio'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'io.github.cdimascio:dotenv-kotlin:6.4.1'
+
+    // For logging
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    // Testing dependencies
+    testImplementation 'io.ktor:ktor-server-tests-jvm'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.9.20'
+}
+
+application {
+    mainClass = 'com.gendev.server.ApplicationKt'
+}
+
+// Configure the Ktor plugin
+ktor {
+    fatJar {
+        archiveFileName = "gendev-server.jar"
+    }
+}
+
+// Set Java compatibility
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+// Kotlin compiler options
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
